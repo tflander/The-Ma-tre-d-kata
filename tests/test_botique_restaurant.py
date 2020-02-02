@@ -5,13 +5,14 @@ import pytest
 import datetime
 
 
+christmas = datetime.date(2029, 12, 25)
+new_years_day = datetime.date(2030, 1, 1)
+
+
 @pytest.fixture
 def botique_restaurant():
     twelve_top = table.Table(seats=12)
     return Restaurant(RestaurantType.BOUTIQUE, twelve_top)
-
-christmas = datetime.date(2029, 12, 25)
-new_years_day = datetime.date(2030, 1, 1)
 
 
 def test_init(botique_restaurant):
@@ -21,9 +22,7 @@ def test_init(botique_restaurant):
 
 
 def test_takes_reservation_for_empty_table(botique_restaurant):
-    twelve_top = botique_restaurant.table
     assert botique_restaurant.request_reservation_for(new_years_day, requested_count=10)
-    assert twelve_top.seats == 12
     assert botique_restaurant.available_for(new_years_day) == 2
 
 
